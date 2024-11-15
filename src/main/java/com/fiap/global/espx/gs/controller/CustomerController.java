@@ -18,6 +18,7 @@ import java.util.UUID;
 
 @Slf4j
 @RestController()
+@RequestMapping("/clientes")
 public class CustomerController {
     @Autowired
     private SaveCustomerService saveCustomerService;
@@ -28,23 +29,23 @@ public class CustomerController {
     @Autowired
     private GetOneCustomerService getOneCustomerService;
 
-    @PostMapping("/clientes")
+    @PostMapping
     public ResponseEntity<Customer> saveCustomer(@RequestBody @Valid CustomerDTO customerDTO) {
         log.info("Cadastrando novo customer: {}", customerDTO);
         return new ResponseEntity<>(saveCustomerService.saveCustomer(customerDTO), HttpStatus.CREATED);
     }
 
-    @GetMapping("/clientes")
+    @GetMapping
     public ResponseEntity<List<Customer>> getAllCustomers() {
         return new ResponseEntity<>(getAllCustomersService.getAllCustomers(), HttpStatus.OK);
     }
 
-    @GetMapping("/clientes/{customerID}")
+    @GetMapping("/{customerID}")
     public ResponseEntity<Customer> getOneCustomer(@PathVariable("customerID") UUID customerID) {
         return new ResponseEntity<>(getOneCustomerService.getOneCustomer(customerID), HttpStatus.OK);
     }
 
-    @DeleteMapping("/clientes/{cutomerID}")
+    @DeleteMapping("/{cutomerID}")
     public ResponseEntity<Customer> deleteCustomer(@PathVariable(value = "cutomerID") UUID customerID) {
         return new ResponseEntity<>(deleteCustomerService.deleteCustomer(customerID), HttpStatus.OK);
     }
