@@ -3,23 +3,44 @@ package com.fiap.global.espx.gs.entity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "contract")
 public class Contract {
-    @OneToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID id;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToOne
-    @JoinColumn(name = "installation_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "installation_id")
     private Installation installation;
 
     private Date startDate;
     private int contractDuration;
-    private boolean isActive = true;
+    private boolean isActive;
+
+    @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ConsumptionRecord> consumptionRecords = new ArrayList<>();
+
+    @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductionRecord> productionRecords = new ArrayList<>();
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public Customer getCustomer() {
         return customer;
@@ -61,7 +82,8 @@ public class Contract {
         isActive = active;
     }
 
-    public Contract(Customer customer, Installation installation, Date startDate, int contractDuration, boolean isActive) {
+    public Contract(UUID id, Customer customer, Installation installation, Date startDate, int contractDuration, boolean isActive) {
+        this.id = id;
         this.customer = customer;
         this.installation = installation;
         this.startDate = startDate;

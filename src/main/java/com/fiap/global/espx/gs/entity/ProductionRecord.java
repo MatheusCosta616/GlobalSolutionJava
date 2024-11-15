@@ -6,8 +6,8 @@ import org.hibernate.annotations.GenericGenerator;
 import java.util.UUID;
 
 @Entity
-@Table(name = "consumption_record")
-public class ConsumptionRecord {
+@Table(name = "production_record")
+public class ProductionRecord {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
@@ -17,17 +17,16 @@ public class ConsumptionRecord {
     @JoinColumn(name = "contract_id")
     private Contract contract;
 
-    private double consumptionKWh;
+    private double productionKWh;
     private long measurementTimestamp;
 
-    public ConsumptionRecord(UUID id, Contract contract, double consumptionKWh, long measurementTimestamp) {
+    public ProductionRecord() {}
+
+    public ProductionRecord(UUID id, Contract contract, double productionKWh, long measurementTimestamp) {
         this.id = id;
         this.contract = contract;
-        this.consumptionKWh = consumptionKWh;
+        this.productionKWh = productionKWh;
         this.measurementTimestamp = measurementTimestamp;
-    }
-
-    public ConsumptionRecord() {
     }
 
     public UUID getId() {
@@ -46,12 +45,12 @@ public class ConsumptionRecord {
         this.contract = contract;
     }
 
-    public double getConsumptionKWh() {
-        return consumptionKWh;
+    public double getProductionKWh() {
+        return productionKWh;
     }
 
-    public void setConsumptionKWh(double consumptionKWh) {
-        this.consumptionKWh = consumptionKWh;
+    public void setProductionKWh(double productionKWh) {
+        this.productionKWh = productionKWh;
     }
 
     public long getMeasurementTimestamp() {

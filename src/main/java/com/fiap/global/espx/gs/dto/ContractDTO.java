@@ -1,4 +1,9 @@
 package com.fiap.global.espx.gs.dto;
 
-public class ContractDTO {
+public record ContractDTO(
+        String customerId,
+        String installationId,
+        String startDate,
+        int contractDuration
+) {
 }

@@ -1,11 +1,10 @@
 package com.fiap.global.espx.gs.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -17,7 +16,10 @@ public class Installation {
     private UUID id;
     private String address;
     private String cep;
-    private boolean isActive = true;
+    private boolean isActive;
+
+    @OneToMany(mappedBy = "installation", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Contract> contracts = new ArrayList<>();
 
     public UUID getId() {
         return id;
@@ -49,6 +51,14 @@ public class Installation {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public List<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(List<Contract> contracts) {
+        this.contracts = contracts;
     }
 
     public Installation(UUID id, String address, String cep, boolean isActive) {

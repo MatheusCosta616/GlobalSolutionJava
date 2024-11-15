@@ -4,6 +4,8 @@ import com.fiap.global.espx.gs.enuns.CustomerType;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -20,6 +22,8 @@ public class Customer {
     private CustomerType type;
     private String cep;
     private boolean isActive;
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Contract> contracts = new ArrayList<>();
 
     public UUID getId() {
         return id;
@@ -75,6 +79,14 @@ public class Customer {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public List<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(List<Contract> contracts) {
+        this.contracts = contracts;
     }
 
     public Customer(UUID id, String name, String address, String cnpj, CustomerType type, String cep, boolean isActive) {
