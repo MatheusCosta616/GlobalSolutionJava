@@ -31,7 +31,7 @@ public class InstallationController {
 
     @PostMapping
     public ResponseEntity<Installation> saveInstallation(@RequestBody @Valid InstallationDTO installationDTO) {
-        log.info("Saving new installation: {}", installationDTO);
+        log.info("Salvando nova instalação: {}", installationDTO);
         return new ResponseEntity<>(saveInstallationService.saveInstallation(installationDTO), HttpStatus.CREATED);
     }
 
