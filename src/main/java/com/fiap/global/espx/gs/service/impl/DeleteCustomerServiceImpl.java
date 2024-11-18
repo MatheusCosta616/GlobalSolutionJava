@@ -18,17 +18,25 @@ public class DeleteCustomerServiceImpl implements DeleteCustomerService {
 
     @Override
     public Customer deleteCustomer(UUID customerID) {
-       Optional<Customer> customer = customerRepository.findById(customerID);
+        Optional<Customer> customerOptional = customerRepository.findById(customerID);
 
-       if (customer.isEmpty()) {
-           log.error("Customer not found");
-           throw new RuntimeException("Customer not found");
-       }
+        if (customerOptional.isEmpty()) {
+            log.error("Cliente não encontrado", customerID);
+            throw new IllegalArgumentException("Cliente não encontrado com o ID: " + customerID);
+        }
 
-       Customer customerToDelete = customer.get();
-       customerRepository.delete(customerToDelete);
+        Customer customer = customerOptional.get();
 
-       log.info("Customer deleted successfully");
-       return customerToDelete;
+        if (!customer.isAtivo()) {
+            log.info("O cliente já esta desativado", customerID);
+            return customer;
+        }
+
+        customer.setAtivo(false);
+        customerRepository.save(customer);
+
+        log.info("Cliente desativado", customerID);
+
+        return customer;
     }
 }

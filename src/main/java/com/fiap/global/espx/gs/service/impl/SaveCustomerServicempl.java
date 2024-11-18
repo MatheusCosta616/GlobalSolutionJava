@@ -17,6 +17,7 @@ public class SaveCustomerServicempl implements SaveCustomerService {
     public Customer saveCustomer(CustomerDTO customerDTO) {
         Customer customer = new Customer();
         BeanUtils.copyProperties(customerDTO, customer);
+        customer.setAtivo(true);
 
         return customerRepository.save(customer);
     }

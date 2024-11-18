@@ -18,6 +18,7 @@ public class SaveInstallationServiceImpl implements SaveInstallationService {
     public Installation saveInstallation(InstallationDTO installationDTO) {
         Installation installation = new Installation();
         BeanUtils.copyProperties(installationDTO, installation);
+        installation.setActive(true);
 
         return installationRepository.save(installation);
     }

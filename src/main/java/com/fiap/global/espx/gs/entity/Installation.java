@@ -1,5 +1,6 @@
 package com.fiap.global.espx.gs.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -10,14 +11,17 @@ import java.util.UUID;
 @Entity
 @Table(name = "installation")
 public class Installation {
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
-    private String address;
+
+    private String endereco;
     private String cep;
     private boolean isActive;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "installation", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contract> contracts = new ArrayList<>();
 
@@ -29,12 +33,12 @@ public class Installation {
         this.id = id;
     }
 
-    public String getAddress() {
-        return address;
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setEndereco(String address) {
+        this.endereco = address;
     }
 
     public String getCep() {
@@ -53,6 +57,7 @@ public class Installation {
         isActive = active;
     }
 
+    @JsonIgnore
     public List<Contract> getContracts() {
         return contracts;
     }
@@ -61,9 +66,9 @@ public class Installation {
         this.contracts = contracts;
     }
 
-    public Installation(UUID id, String address, String cep, boolean isActive) {
+    public Installation(UUID id, String endereco, String cep, boolean isActive) {
         this.id = id;
-        this.address = address;
+        this.endereco = endereco;
         this.cep = cep;
         this.isActive = isActive;
     }

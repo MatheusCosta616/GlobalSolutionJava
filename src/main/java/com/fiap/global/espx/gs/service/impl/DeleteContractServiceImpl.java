@@ -1,6 +1,7 @@
 package com.fiap.global.espx.gs.service.impl;
 
 import com.fiap.global.espx.gs.entity.Contract;
+import com.fiap.global.espx.gs.entity.Customer;
 import com.fiap.global.espx.gs.repository.ContractRepository;
 import com.fiap.global.espx.gs.service.DeleteContractService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,17 +19,30 @@ public class DeleteContractServiceImpl implements DeleteContractService {
 
     @Override
     public Contract deleteContract(UUID contractId) {
-        Optional<Contract> contract = contractRepository.findById(contractId);
+        Optional<Contract> contractOptional = contractRepository.findById(contractId);
 
-        if (contract.isEmpty()) {
-            log.error("Contract not found");
-            throw new RuntimeException("Contract not found");
+        if (contractOptional.isEmpty()) {
+            log.error("Contrato não encontrado", contractId);
+            throw new IllegalArgumentException("Contrato não encontrado com o ID: " + contractId);
         }
 
-        Contract contractToDelete = contract.get();
-        contractRepository.delete(contractToDelete);
+        Contract contract = contractOptional.get();
 
-        log.info("Contract deleted successfully");
-        return contractToDelete;
+        if (!contract.isActive()) {
+            log.info("O Contrato já esta desativado", contractId);
+            return contract;
+        }
+
+        contract.setActive(false);
+
+        if (contract.isActive() == false){
+            contract.setStatus("DESATIVADO");
+        }
+
+        contractRepository.save(contract);
+
+        log.info("Cliente desativado", contractId);
+
+        return contract;
     }
 }

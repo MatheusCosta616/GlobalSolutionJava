@@ -1,6 +1,5 @@
 package com.fiap.global.espx.gs.service.impl;
 
-import com.fiap.global.espx.gs.entity.Customer;
 import com.fiap.global.espx.gs.entity.Installation;
 import com.fiap.global.espx.gs.repository.InstallationRepository;
 import com.fiap.global.espx.gs.service.DeleteInstallationService;
@@ -22,14 +21,22 @@ public class DeleteInstallationServiceImpl implements DeleteInstallationService 
         Optional<Installation> optionalInstallation = installationRepository.findById(installationId);
 
         if (optionalInstallation.isEmpty()) {
-            log.error("Installation not found");
-            throw new RuntimeException("Installation not found");
+            log.error("Instalação não encontrada");
+            throw new IllegalArgumentException("Instalação não encontrada com o ID: " + installationId);
         }
 
         Installation installation = optionalInstallation.get();
-        installationRepository.delete(installation);
 
-        log.info("Installation deleted successfully");
+        if (!installation.isActive()) {
+            log.info("A instalação com já está desativada");
+            return installation;
+        }
+
+        installation.setActive(false);
+        installationRepository.save(installation);
+
+        log.info("A instalação foi desativada com sucesso");
+
         return installation;
     }
 }

@@ -1,5 +1,6 @@
 package com.fiap.global.espx.gs.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fiap.global.espx.gs.enuns.CustomerType;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -11,17 +12,24 @@ import java.util.UUID;
 @Entity
 @Table(name = "customer")
 public class Customer {
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
-    private String name;
-    private String address;
-    private String cnpj;
+
+    private String nome;
+    private String endereco;
+    private String documento;
+
     @Enumerated(EnumType.STRING)
-    private CustomerType type;
+    private CustomerType tipo;
+
     private String cep;
-    private boolean isActive;
+
+    private boolean ativo;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contract> contracts = new ArrayList<>();
 
@@ -33,36 +41,36 @@ public class Customer {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public String getAddress() {
-        return address;
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
-    public String getCnpj() {
-        return cnpj;
+    public String getDocumento() {
+        return documento;
     }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+    public void setDocumento(String documento) {
+        this.documento = documento;
     }
 
-    public CustomerType getType() {
-        return type;
+    public CustomerType getTipo() {
+        return tipo;
     }
 
-    public void setType(CustomerType type) {
-        this.type = type;
+    public void setTipo(CustomerType tipo) {
+        this.tipo = tipo;
     }
 
     public String getCep() {
@@ -73,12 +81,12 @@ public class Customer {
         this.cep = cep;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public boolean isAtivo() {
+        return ativo;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
     public List<Contract> getContracts() {
@@ -87,18 +95,5 @@ public class Customer {
 
     public void setContracts(List<Contract> contracts) {
         this.contracts = contracts;
-    }
-
-    public Customer(UUID id, String name, String address, String cnpj, CustomerType type, String cep, boolean isActive) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.cnpj = cnpj;
-        this.type = type;
-        this.cep = cep;
-        this.isActive = isActive;
-    }
-
-    public Customer() {
     }
 }
