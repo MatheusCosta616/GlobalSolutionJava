@@ -21,7 +21,7 @@ public class GetAllContractServiceImpl implements GetAllContractsService {
 
         for (Contract contract : contracts) {
             Date expirationDate = new Date(contract.getContratoInicioTimestamp().getTime() + (long) contract.getTimeFrame() * 24 * 60 * 60 * 1000);
-            
+
             if (new Date().after(expirationDate)) {
                 if (contract.isActive()) {
                     contract.setActive(false);
