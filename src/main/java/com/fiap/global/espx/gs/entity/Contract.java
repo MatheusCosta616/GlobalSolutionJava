@@ -44,14 +44,6 @@ public class Contract {
     @JsonIgnore
     private boolean isActive = true;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ConsumptionRecord> consumptionRecords = new ArrayList<>();
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductionRecord> productionRecords = new ArrayList<>();
-
     public Contract(UUID id, UUID cliente_uuid, UUID instalacao_uuid, int timeFrame, Timestamp contratoInicioTimestamp, String status) {
         this.instalacao_uuid = instalacao_uuid;
         this.cliente_uuid = cliente_uuid;
@@ -134,28 +126,11 @@ public class Contract {
         this.status = status;
     }
 
-    @JsonIgnore
     public boolean isActive() {
         return isActive;
     }
 
     public void setActive(boolean active) {
         isActive = active;
-    }
-
-    public List<ConsumptionRecord> getConsumptionRecords() {
-        return consumptionRecords;
-    }
-
-    public void setConsumptionRecords(List<ConsumptionRecord> consumptionRecords) {
-        this.consumptionRecords = consumptionRecords;
-    }
-
-    public List<ProductionRecord> getProductionRecords() {
-        return productionRecords;
-    }
-
-    public void setProductionRecords(List<ProductionRecord> productionRecords) {
-        this.productionRecords = productionRecords;
     }
 }
