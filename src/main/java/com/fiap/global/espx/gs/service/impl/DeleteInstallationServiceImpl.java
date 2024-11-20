@@ -18,14 +18,14 @@ public class DeleteInstallationServiceImpl implements DeleteInstallationService 
 
     @Override
     public Installation deleteInstallation(UUID installationId) {
-        Optional<Installation> optionalInstallation = installationRepository.findById(installationId);
+        Optional<Installation> installationOptional = installationRepository.findById(installationId);
 
-        if (optionalInstallation.isEmpty()) {
+        if (installationOptional.isEmpty()) {
             log.error("Instalação não encontrada");
             throw new IllegalArgumentException("Instalação não encontrada com o ID: " + installationId);
         }
 
-        Installation installation = optionalInstallation.get();
+        Installation installation = installationOptional.get();
 
         if (!installation.isActive()) {
             log.info("A instalação com já está desativada");

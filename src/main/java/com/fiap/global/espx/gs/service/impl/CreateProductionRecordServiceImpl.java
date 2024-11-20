@@ -24,8 +24,8 @@ public class CreateProductionRecordServiceImpl implements CreateProductionRecord
 
     @Override
     public ProductionRecord createProductionRecord(ProductionRecordDTO productionRecordDTO) {
-        Optional<Installation> installation = installationRepository.findById(productionRecordDTO.instalacao_uuid());
-        if (installation.isEmpty()) {
+        Optional<Installation> installationOptional = installationRepository.findById(productionRecordDTO.instalacao_uuid());
+        if (installationOptional.isEmpty()) {
             throw new IllegalArgumentException("Instalação não encontrada");
         }
 
@@ -51,7 +51,7 @@ public class CreateProductionRecordServiceImpl implements CreateProductionRecord
         }
 
         ProductionRecord record = new ProductionRecord();
-        record.setInstallation(installation.get());
+        record.setInstallation(installationOptional.get());
         record.setInstallationUuid(productionRecordDTO.instalacao_uuid());
         record.setProducao_kwh(productionRecordDTO.producao_kwh());
         record.setMedicao_timestamp(productionRecordDTO.medicao_timestamp());
