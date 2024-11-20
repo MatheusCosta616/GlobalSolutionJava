@@ -96,4 +96,18 @@ public class Customer {
     public void setContracts(List<Contract> contracts) {
         this.contracts = contracts;
     }
+
+    public Customer(UUID id, String nome, String endereco, String documento, CustomerType tipo, String cep, boolean ativo, List<Contract> contracts) {
+        this.id = id;
+        this.nome = nome;
+        this.endereco = endereco;
+        this.documento = documento;
+        this.tipo = tipo;
+        this.cep = cep;
+        this.ativo = ativo;
+        this.contracts = contracts;
+    }
+
+    public Customer() {
+    }
 }

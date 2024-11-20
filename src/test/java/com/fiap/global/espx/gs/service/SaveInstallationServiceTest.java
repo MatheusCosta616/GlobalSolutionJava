@@ -53,8 +53,14 @@ public class SaveInstallationServiceTest {
     }
 
     @Test
-    void shouldGenerateUUID() {
+    void shouldSetCorrectAddress() {
         Installation result = service.saveInstallation(validDTO);
-        assertNotNull(result.getId());
+        assertEquals("Rua das Flores, 123", result.getEndereco());
+    }
+
+    @Test
+    void shouldSetCorrectCEP() {
+        Installation result = service.saveInstallation(validDTO);
+        assertEquals("12345-678", result.getCep());
     }
 } 

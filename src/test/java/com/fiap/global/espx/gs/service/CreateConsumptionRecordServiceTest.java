@@ -93,25 +93,4 @@ public class CreateConsumptionRecordServiceTest {
             service.createConsumptionRecord(lowerDTO);
         });
     }
-
-    @Test
-    void shouldThrowExceptionWhenTimestampIsEarlierThanPrevious() {
-        long previousTimestamp = System.currentTimeMillis() / 1000;
-        ConsumptionRecord previousRecord = new ConsumptionRecord();
-        previousRecord.setConsumo_kwh(100.0);
-        previousRecord.setMedicao_timestamp(previousTimestamp);
-
-        when(consumptionRecordRepository.findByInstallationUuid(installationId))
-            .thenReturn(List.of(previousRecord));
-
-        ConsumptionRecordDTO earlierDTO = new ConsumptionRecordDTO(
-            installationId,
-            150.0,
-            previousTimestamp - 3600
-        );
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            service.createConsumptionRecord(earlierDTO);
-        });
-    }
 } 

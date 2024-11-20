@@ -129,4 +129,16 @@ public class Contract {
     public void setActive(boolean active) {
         isActive = active;
     }
+
+    public Contract(UUID id, Customer customer, UUID cliente_uuid, Installation installation, UUID instalacao_uuid, Timestamp contratoInicioTimestamp, int timeFrame, String status, boolean isActive) {
+        this.id = id;
+        this.customer = customer;
+        this.cliente_uuid = cliente_uuid;
+        this.installation = installation;
+        this.instalacao_uuid = instalacao_uuid;
+        this.contratoInicioTimestamp = contratoInicioTimestamp;
+        this.timeFrame = timeFrame;
+        this.status = status;
+        this.isActive = isActive;
+    }
 }

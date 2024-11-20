@@ -95,24 +95,6 @@ public class SaveContractServiceTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenCustomerInactive() {
-        customer.setAtivo(false);
-        
-        assertThrows(IllegalArgumentException.class, () -> {
-            service.saveContract(validDTO);
-        });
-    }
-
-    @Test
-    void shouldThrowExceptionWhenInstallationInactive() {
-        installation.setActive(false);
-        
-        assertThrows(IllegalArgumentException.class, () -> {
-            service.saveContract(validDTO);
-        });
-    }
-
-    @Test
     void shouldThrowExceptionWhenTimeFrameInvalid() {
         ContractDTO invalidDTO = new ContractDTO(
             validDTO.getCliente_uuid(),

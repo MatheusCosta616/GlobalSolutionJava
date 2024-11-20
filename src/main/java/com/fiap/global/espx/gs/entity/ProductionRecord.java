@@ -92,4 +92,14 @@ public class ProductionRecord {
     public void setCreated_at(long created_at) {
         this.created_at = created_at;
     }
+
+    public ProductionRecord(UUID id, Installation installation, UUID installationUuid, Double producao_kwh, long medicao_timestamp, long created_at) {
+        this.id = id;
+        this.installation = installation;
+        this.installationUuid = installationUuid;
+        this.producao_kwh = producao_kwh;
+        this.medicao_timestamp = medicao_timestamp;
+        this.created_at = created_at;
+    }
+
 }

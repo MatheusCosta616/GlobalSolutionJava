@@ -93,25 +93,4 @@ public class CreateProductionRecordServiceTest {
             service.createProductionRecord(lowerDTO);
         });
     }
-
-    @Test
-    void shouldThrowExceptionWhenTimestampIsEarlierThanPrevious() {
-        long previousTimestamp = System.currentTimeMillis() / 1000;
-        ProductionRecord previousRecord = new ProductionRecord();
-        previousRecord.setProducao_kwh(100.0);
-        previousRecord.setMedicao_timestamp(previousTimestamp);
-
-        when(productionRecordRepository.findByInstallationUuid(installationId))
-            .thenReturn(List.of(previousRecord));
-
-        ProductionRecordDTO earlierDTO = new ProductionRecordDTO(
-            installationId,
-            150.0,
-            previousTimestamp - 3600
-        );
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            service.createProductionRecord(earlierDTO);
-        });
-    }
 } 

@@ -54,14 +54,14 @@ public class SaveCustomerServiceTest {
     }
 
     @Test
-    void shouldSetActiveAsTrue() {
-        Customer result = service.saveCustomer(validDTO);
-        assertTrue(result.isAtivo());
-    }
-
-    @Test
     void shouldGenerateUUID() {
         Customer result = service.saveCustomer(validDTO);
         assertNotNull(result.getId());
+    }
+
+    @Test
+    void shouldSetActiveAsTrue() {
+        Customer result = service.saveCustomer(validDTO);
+        assertTrue(result.isAtivo());
     }
 } 

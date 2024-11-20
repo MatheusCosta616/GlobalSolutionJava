@@ -90,4 +90,13 @@ public class ConsumptionRecord {
     public void setCreated_at(long created_at) {
         this.created_at = created_at;
     }
+
+    public ConsumptionRecord(UUID id, Installation installation, UUID installationUuid, double consumo_kwh, long medicao_timestamp, long created_at) {
+        this.id = id;
+        this.installation = installation;
+        this.installationUuid = installationUuid;
+        this.consumo_kwh = consumo_kwh;
+        this.medicao_timestamp = medicao_timestamp;
+        this.created_at = created_at;
+    }
 }
