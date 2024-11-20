@@ -70,9 +70,9 @@ public class SaveContractServiceTest {
         Contract result = service.saveContract(validDTO);
 
         assertNotNull(result);
-        assertEquals(validDTO.cliente_uuid(), result.getCliente_uuid());
-        assertEquals(validDTO.instalacao_uuid(), result.getInstalacao_uuid());
-        assertEquals(validDTO.timeFrame(), result.getTimeFrame());
+        assertEquals(validDTO.getCliente_uuid(), result.getCliente_uuid());
+        assertEquals(validDTO.getInstalacao_uuid(), result.getInstalacao_uuid());
+        assertEquals(validDTO.getTimeFrame(), result.getTimeFrame());
         assertTrue(result.isActive());
     }
 
@@ -115,8 +115,8 @@ public class SaveContractServiceTest {
     @Test
     void shouldThrowExceptionWhenTimeFrameInvalid() {
         ContractDTO invalidDTO = new ContractDTO(
-            validDTO.cliente_uuid(),
-            validDTO.instalacao_uuid(),
+            validDTO.getCliente_uuid(),
+            validDTO.getInstalacao_uuid(),
             45
         );
         

@@ -23,39 +23,39 @@ public class CreateConsumptionRecordServiceImpl implements CreateConsumptionReco
     private InstallationRepository installationRepository;
 
     @Override
-    public ConsumptionRecord createConsumptionRecord(ConsumptionRecordDTO dto) {
-        Optional<Installation> installation = installationRepository.findById(dto.instalacao_uuid());
+    public ConsumptionRecord createConsumptionRecord(ConsumptionRecordDTO consumptionRecordDTO) {
+        Optional<Installation> installation = installationRepository.findById(consumptionRecordDTO.instalacao_uuid());
         if (installation.isEmpty()) {
             throw new IllegalArgumentException("Instalação não encontrada");
         }
 
         List<ConsumptionRecord> previousRecords = consumptionRecordRepository
-                .findByInstallationUuid(dto.instalacao_uuid());
+                .findByInstallationUuid(consumptionRecordDTO.instalacao_uuid());
 
         if (!previousRecords.isEmpty()) {
             ConsumptionRecord lastRecord = previousRecords.stream()
                     .max(Comparator.comparingLong(ConsumptionRecord::getMedicao_timestamp))
                     .orElseThrow();
 
-            if (dto.consumo_kwh() <= lastRecord.getConsumo_kwh()) {
+            if (consumptionRecordDTO.consumo_kwh() <= lastRecord.getConsumo_kwh()) {
                 throw new IllegalArgumentException(
                     "O consumo informado deve ser maior que o último consumo registrado: " 
                     + lastRecord.getConsumo_kwh());
             }
 
-            if (dto.medicao_timestamp() <= lastRecord.getMedicao_timestamp()) {
+            if (consumptionRecordDTO.medicao_timestamp() <= lastRecord.getMedicao_timestamp()) {
                 throw new IllegalArgumentException(
                     "O timestamp da medição deve ser posterior ao último registro: " 
                     + lastRecord.getMedicao_timestamp());
             }
         }
 
-        ConsumptionRecord record = new ConsumptionRecord();
-        record.setInstallation(installation.get());
-        record.setInstallationUuid(dto.instalacao_uuid());
-        record.setConsumo_kwh(dto.consumo_kwh());
-        record.setMedicao_timestamp(dto.medicao_timestamp());
+        ConsumptionRecord consumptionRecord = new ConsumptionRecord();
+        consumptionRecord.setInstallation(installation.get());
+        consumptionRecord.setInstallationUuid(consumptionRecordDTO.instalacao_uuid());
+        consumptionRecord.setConsumo_kwh(consumptionRecordDTO.consumo_kwh());
+        consumptionRecord.setMedicao_timestamp(consumptionRecordDTO.medicao_timestamp());
 
-        return consumptionRecordRepository.save(record);
+        return consumptionRecordRepository.save(consumptionRecord);
     }
 }

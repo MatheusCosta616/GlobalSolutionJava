@@ -2,7 +2,8 @@ package com.fiap.global.espx.gs.service;
 
 import com.fiap.global.espx.gs.entity.Contract;
 import com.fiap.global.espx.gs.repository.ContractRepository;
-import com.fiap.global.espx.gs.service.impl.GetAllContractsServiceImpl;
+
+import com.fiap.global.espx.gs.service.impl.GetAllContractServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -18,7 +19,7 @@ import static org.mockito.Mockito.when;
 public class GetAllContractsServiceTest {
 
     @InjectMocks
-    private GetAllContractsServiceImpl service;
+    private GetAllContractServiceImpl service;
 
     @Mock
     private ContractRepository contractRepository;

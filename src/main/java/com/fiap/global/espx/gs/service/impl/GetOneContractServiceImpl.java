@@ -7,12 +7,13 @@ import com.fiap.global.espx.gs.service.GetOneContractService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
-@Repository
+@Service
 public class GetOneContractServiceImpl implements GetOneContractService {
     @Autowired
     ContractRepository contractRepository;
