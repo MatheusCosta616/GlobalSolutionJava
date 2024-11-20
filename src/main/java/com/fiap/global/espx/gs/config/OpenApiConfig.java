@@ -16,13 +16,11 @@ public class OpenApiConfig {
                 .info(new Info()
                         .title("SunnyMeter API")
                         .version("1.0")
-                        .description("API para gerenciamento do SunnyMeter - Sistema de monitoramento de consumo e geração de energia elétrica")
-                        .contact(new Contact()
-                                .name("FIAP")
-                                .email("suporte@fiap.com.br")
-                                .url("https://www.fiap.com.br"))
-                        .license(new License()
-                                .name("Apache 2.0")
-                                .url("http://springdoc.org")));
+                        .description("API para gerenciamento do SunnyMeter - Sistema de monitoramento de consumo e geração de energia elétrica\n\n" +
+                                   "Integrantes do Grupo:\n" +
+                                   "- Caíque Walter Silva - RM550693\n" +
+                                   "- Guilherme Nobre Bernardo - RM98604\n" +
+                                   "- Matheus José de Lima Costa - RM551157")
+                       );
     }
 } 
