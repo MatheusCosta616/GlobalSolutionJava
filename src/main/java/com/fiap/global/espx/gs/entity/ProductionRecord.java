@@ -25,11 +25,11 @@ public class ProductionRecord {
     @JsonProperty("instalacao_uuid")
     private UUID installationUuid;
 
-    @Column(name = "production_kwh")
+    @Column(name = "productionkwh", nullable = false)
     @JsonProperty("producao_kwh")
-    private double producao_kwh;
+    private Double producao_kwh;
 
-    @Column(name = "measurement_timestamp")
+    @Column(name = "medicao_timestamp", nullable = false)
     @JsonProperty("medicao_timestamp")
     private long medicao_timestamp;
 
@@ -69,11 +69,11 @@ public class ProductionRecord {
         this.installationUuid = installationUuid;
     }
 
-    public double getProducao_kwh() {
+    public Double getProducao_kwh() {
         return producao_kwh;
     }
 
-    public void setProducao_kwh(double producao_kwh) {
+    public void setProducao_kwh(Double producao_kwh) {
         this.producao_kwh = producao_kwh;
     }
 

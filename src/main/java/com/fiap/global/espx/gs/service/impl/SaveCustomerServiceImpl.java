@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SaveCustomerServicempl implements SaveCustomerService {
+public class SaveCustomerServiceImpl implements SaveCustomerService {
     @Autowired
     CustomerRepository customerRepository;
 
